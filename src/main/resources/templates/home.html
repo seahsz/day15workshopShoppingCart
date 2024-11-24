@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carts</title>
+</head>
+
+<body>
+
+    <h1> List of <code><span data-th-text="${username}"></span></code>'s shopping carts </h1>
+
+    <hr>
+
+    <div data-th-if="${#maps.isEmpty(carts)}">
+        <span> You have not created any carts yet </span>
+    </div>
+
+    <div data-th-unless="${#maps.isEmpty(carts)}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Cart ID</th>
+                    <th>Number of Items</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-th-each="c : ${carts}">
+                    <td data-th-text="${c.key}"></td>
+                    <td data-th-text="${c.value.totalItemQuantity}"></td>
+                    <td>
+                        <form method="GET" data-th-action="@{/cart/{cartId}(cartId=${c.key})}">
+                            <button type="submit">View</button>
+                        </form> /
+                        <form method="POST" data-th-action="@{/deleteCart/{cartId}(cartId=${c.key})}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <form method="GET" action="/newCart">
+        <button type="submit">Create new Cart</button>
+    </form>
+
+    <hr>
+
+    <form method="GET" action="/">
+        <button type="submit">Back to Login</button>
+    </form>
+
+</body>
+
+</html>

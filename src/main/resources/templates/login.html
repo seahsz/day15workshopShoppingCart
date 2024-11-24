@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+</head>
+<body>
+    <h1> Welcome </h1>
+
+    <form method="POST" action="/home" data-th-object="${user}">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <h3>User Id</h3>
+                    </td>
+                    <td>
+                        <input type="text" data-th-field="*{username}">
+                    </td>
+                    <td>
+                        <span data-th-if="${#fields.hasErrors('username')}" data-th-errors="*{username}"
+                            data-th-errorclass="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit">Login</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <!-- Note that we need to use th:href here because the cart URL is dynamically generated -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+</head>
+<body>
+    
+    <h1>Cart <code><span data-th-text="${cartId}"></span></code></h1>
+
+    <div>
+        <form method="GET" action="/home">
+            <button type="submit">Back to Carts</button>
+        </form>
+    </div>
+
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    Name:
+                </td>
+                <td>
+                    <code><span data-th-text="${username}"></span></code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <form method="POST" data-th-action="@{/cart/{id}(id=${cartId})}" data-th-object="${item}">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Item:</td>
+                    <td>
+                        <input type="text" name="itemName">
+                    </td>
+                    <td>
+                        <span data-th-if="${#fields.hasErrors('itemName')}" data-th-errors="*{itemName}"
+                            data-th-errorclass="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quantity:</td>
+                    <td>
+                        <input type="number" name="quantity">
+                    </td>
+                    <td>
+                        <span data-th-if="${#fields.hasErrors('quantity')}" data-th-errors="*{quantity}"
+                            data-th-errorclass="error"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit">Add</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <hr>
+
+    <div data-th-if="${#sets.isEmpty(itemList)}">
+        <span> Cart is currently empty </span>
+    </div>
+
+    <div data-th-unless="${#sets.isEmpty(itemList)}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-th-each="i : ${itemList}">
+                    <td data-th-text="${i.itemName}"></td>
+                    <td data-th-text="${i.quantity}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,6 @@
+.error {
+    font-size: smaller;
+    font-family: monospace;
+    font-style: italic;
+    color: red;
+}
